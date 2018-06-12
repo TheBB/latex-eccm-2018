@@ -122,10 +122,89 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{IGA and divergence-conforming methods}
+  \frametitle{IGA}
 
-  In IGA, we use B-Spline basis functions. With splines, it is easy to control both polynomial
-  degree and continuity. This way it's easy to create a divergence-conforming method on a
+  B-Spline basis functions.
+
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[
+        xlabel={$x$},
+        ylabel={$b(x)$},
+        xmin=0, xmax=10,
+        ymin=0.001,
+        width=0.9\textwidth,
+        height=0.5\textwidth,
+        axis lines=left,
+        ticks=none,
+        ]
+        \only<1>{
+        \addplot[blue, thick] table[x index={0}, y index={1}]{data/linbasis.csv};
+        \addplot[red, thick] table[x index={0}, y index={2}]{data/linbasis.csv};
+        \addplot[teal, thick] table[x index={0}, y index={3}]{data/linbasis.csv};
+        \addplot[magenta, thick] table[x index={0}, y index={4}]{data/linbasis.csv};
+        \addplot[black, thick] table[x index={0}, y index={5}]{data/linbasis.csv};
+        \addplot[cyan, thick] table[x index={0}, y index={6}]{data/linbasis.csv};
+        \addplot[lime, thick] table[x index={0}, y index={7}]{data/linbasis.csv};
+        \addplot[violet, thick] table[x index={0}, y index={8}]{data/linbasis.csv};
+        \addplot[orange, thick] table[x index={0}, y index={9}]{data/linbasis.csv};
+        \addplot[pink, thick] table[x index={0}, y index={10}]{data/linbasis.csv};
+        \addplot[darkgray, thick] table[x index={0}, y index={11}]{data/linbasis.csv};
+        }
+        \only<2>{
+        \addplot[blue, thick] table[x index={0}, y index={1}]{data/quadbasis.csv};
+        \addplot[red, thick] table[x index={0}, y index={2}]{data/quadbasis.csv};
+        \addplot[teal, thick] table[x index={0}, y index={3}]{data/quadbasis.csv};
+        \addplot[magenta, thick] table[x index={0}, y index={4}]{data/quadbasis.csv};
+        \addplot[black, thick] table[x index={0}, y index={5}]{data/quadbasis.csv};
+        \addplot[cyan, thick] table[x index={0}, y index={6}]{data/quadbasis.csv};
+        \addplot[lime, thick] table[x index={0}, y index={7}]{data/quadbasis.csv};
+        \addplot[violet, thick] table[x index={0}, y index={8}]{data/quadbasis.csv};
+        \addplot[orange, thick] table[x index={0}, y index={9}]{data/quadbasis.csv};
+        \addplot[pink, thick] table[x index={0}, y index={10}]{data/quadbasis.csv};
+        \addplot[darkgray, thick] table[x index={0}, y index={11}]{data/quadbasis.csv};
+        \addplot[blue, thick] table[x index={0}, y index={12}]{data/quadbasis.csv};
+        }
+        \only<3>{
+        \addplot[blue, thick] table[x index={0}, y index={1}]{data/cubasis.csv};
+        \addplot[red, thick] table[x index={0}, y index={2}]{data/cubasis.csv};
+        \addplot[teal, thick] table[x index={0}, y index={3}]{data/cubasis.csv};
+        \addplot[magenta, thick] table[x index={0}, y index={4}]{data/cubasis.csv};
+        \addplot[black, thick] table[x index={0}, y index={5}]{data/cubasis.csv};
+        \addplot[cyan, thick] table[x index={0}, y index={6}]{data/cubasis.csv};
+        \addplot[lime, thick] table[x index={0}, y index={7}]{data/cubasis.csv};
+        \addplot[violet, thick] table[x index={0}, y index={8}]{data/cubasis.csv};
+        \addplot[orange, thick] table[x index={0}, y index={9}]{data/cubasis.csv};
+        \addplot[pink, thick] table[x index={0}, y index={10}]{data/cubasis.csv};
+        \addplot[darkgray, thick] table[x index={0}, y index={11}]{data/cubasis.csv};
+        \addplot[blue, thick] table[x index={0}, y index={12}]{data/cubasis.csv};
+        \addplot[red, thick] table[x index={0}, y index={13}]{data/cubasis.csv};
+        }
+        \only<4>{
+        \addplot[blue, thick] table[x index={0}, y index={1}]{data/quartbasis.csv};
+        \addplot[red, thick] table[x index={0}, y index={2}]{data/quartbasis.csv};
+        \addplot[teal, thick] table[x index={0}, y index={3}]{data/quartbasis.csv};
+        \addplot[magenta, thick] table[x index={0}, y index={4}]{data/quartbasis.csv};
+        \addplot[black, thick] table[x index={0}, y index={5}]{data/quartbasis.csv};
+        \addplot[cyan, thick] table[x index={0}, y index={6}]{data/quartbasis.csv};
+        \addplot[lime, thick] table[x index={0}, y index={7}]{data/quartbasis.csv};
+        \addplot[violet, thick] table[x index={0}, y index={8}]{data/quartbasis.csv};
+        \addplot[orange, thick] table[x index={0}, y index={9}]{data/quartbasis.csv};
+        \addplot[pink, thick] table[x index={0}, y index={10}]{data/quartbasis.csv};
+        \addplot[darkgray, thick] table[x index={0}, y index={11}]{data/quartbasis.csv};
+        \addplot[blue, thick] table[x index={0}, y index={12}]{data/quartbasis.csv};
+        \addplot[red, thick] table[x index={0}, y index={13}]{data/quartbasis.csv};
+        \addplot[teal, thick] table[x index={0}, y index={14}]{data/quartbasis.csv};
+        }
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Divergence-conforming methods}
+
+  This way it's easy to create a divergence-conforming method on a
   rectilinear grid:
 
   \begin{itemize}
@@ -199,6 +278,17 @@
       \only<6>{\draw[->, very thick, darkblue] (3.5,1.6) -- (RB.east);}
     \end{tikzpicture}
   \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Divergence-free basis}
+
+  \begin{itemize}
+  \item The mapping from reference to physical geometry needs to preserve divergence-free functions
+    (the Piola mapping).
+  \item Lifting functions must also be divergence-free.
+  \item That's it!
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -295,7 +385,25 @@
     \end{tikzpicture}
   \end{center}
 
-  Note the block-triangular structure.
+  Note the block-triangular structure. (Also, the last equation is trivial.)
+\end{frame}
+
+\begin{frame}
+  \frametitle{Block solver structure}
+
+  \[
+    B_{ps} \bm s = \bm 0 \quad \Rightarrow \quad \bm s = \bm 0
+  \]
+
+  So supremizers are truly test functions, have no influence on the solution.
+
+  \begin{align*}
+    \bm s &= \bm 0 \\
+    \bm A_{vv} \bm v &= \bm f_{v} \\
+    \bm B_{sp} \bm p &= \bm f_{p} - A_{sv} \bm v
+  \end{align*}
+
+  Solve two systems of size $M$ instead of one system of size $3M$.
 \end{frame}
 
 \begin{frame}
@@ -565,19 +673,14 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Solutions}
-
-  \begin{center}
-    \only<1>{\includegraphics[height=0.6\textheight]{figs/no-piola-full}
-    }\only<2>{\includegraphics[height=0.6\textheight]{figs/piola-full}
-    }\only<3>{\includegraphics[height=0.6\textheight]{figs/no-piola-red}
-    }\only<4>{\includegraphics[height=0.6\textheight]{figs/piola-red}}
-    \\
-    \only<1>{Full TH solution: $39$ seconds.
-    }\only<2>{Full DC solution: $113$ seconds.*
-    }\only<3>{Reduced TH solution ($30$ DoFs): $523$ milliseconds.
-    }\only<4>{Reduced DC solution ($30$ DoFs): $96$ milliseconds.}
-  \end{center}
+  \begin{block}{\centering Our guiding principle}
+    \begin{center}
+      \vspace{5mm}
+      All is fair in love, war and the offline stage. \\
+      --- John Lyly (\emph{Euphues}; 1579)
+      \vspace{5mm}
+    \end{center}
+  \end{block}
 \end{frame}
 
 \begin{frame}
