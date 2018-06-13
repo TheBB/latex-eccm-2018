@@ -452,7 +452,7 @@
   \frametitle{Domain transformation}
 
   \begin{center}
-    \includegraphics[width=0.8\textheight]{figs/domain}
+    \includegraphics[width=0.85\textheight]{figs/domain}
   \end{center}
 \end{frame}
 
@@ -488,6 +488,51 @@
   \item For a maximal angle of attack of $\SI{35}{\degree}$ we can expect about $10$ digits of
     accuracy with a reasonable number of terms \\ ($\sim 25$ for TH, $\sim 75$ for DC).
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Affine representations (TH)}
+
+  \begin{align*}
+    a(\hat{\bm u}, \hat{\bm w}; \varphi) &\approx \nu \int_{\hat{\Omega}}
+      \nabla \hat{\bm u} : \left[ (1 + \varphi \bm D_1 - \varphi^2 \bm D_2) \nabla \right] \hat{\bm w} \\
+    b(\hat{p}, \hat{\bm w}; \varphi) &\approx \sum_{i=0}^{2n} \varphi^i
+    \int_{\hat{\Omega}} \hat{p} \bm B^{(-)}_i : \nabla \hat{\bm w} \\
+  c(\hat{\bm u}, \hat{\bm v}, \hat{\bm w}; \varphi)
+  &\approx \sum_{i=0}^{2n} \varphi^i \int_{\hat{\Omega}}
+    (\hat{\bm u} \cdot \bm B^{(-)}_i \nabla) \hat{\bm v} \cdot \hat{\bm w}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Affine representations (TH)}
+
+  \begin{align*}
+    a(\hat{\bm u}, \hat{\bm w}; \varphi)
+    &\approx \sum_{i,j=0}^{2n} \varphi^{i+j} \int_{\hat{\Omega}}
+      \nabla (\bm B^{(+)}_i \hat{\bm u}) : \nabla (\bm B^{(+)}_j \hat{\bm w}) \\
+    &+ \sum_{i,j=0}^{2n} \varphi^{i+j+1} \int_{\hat{\Omega}}
+      \nabla (\bm B^{(+)}_i \hat{\bm u}) : (\bm D_1 \nabla) (\bm B^{(+)}_j \hat{\bm w}) \\
+    &- \sum_{i,j=0}^{2n} \varphi^{i+j+2} \int_{\hat{\Omega}}
+      \nabla (\bm B^{(+)}_i \hat{\bm u}) : (\bm D_2 \nabla) (\bm B^{(+)}_j \hat{\bm w}) \\
+    b(\hat{p}, \hat{\bm w}; \varphi) &\approx \sum_{i,j=0}^{2n} \varphi^{i+j}
+      \int_{\hat{\Omega}} \hat{p} \bm B^{(-)}_i :
+      \nabla \left( \bm B^{(+)}_j \hat{\bm w} \right) \\
+  c(\hat{\bm u}, \hat{\bm v}, \hat{\bm w}; \varphi)
+  &\approx \sum_{i,j=0}^{2n} \varphi^{i+j}
+    \int_{\hat{\Omega}} (\hat{\bm u} \cdot \nabla) \bm B^{(+)}_i \hat{\bm v} \cdot \bm B^{(+)}_j \hat{\bm w}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{\centering Our guiding principle}
+    \begin{center}
+      \vspace{5mm}
+      All is fair in love, war and the offline stage. \\
+      --- John Lyly (\emph{Euphues}; 1579)
+      \vspace{5mm}
+    \end{center}
+  \end{block}
 \end{frame}
 
 \begin{frame}
@@ -562,6 +607,41 @@
     }\only<2>{\includegraphics[width=0.8\textwidth]{figs/bfun-v-piola-v001}
     }\only<3>{\includegraphics[width=0.8\textwidth]{figs/bfun-v-piola-v002}
     }\only<4>{\includegraphics[width=0.8\textwidth]{figs/bfun-v-piola-v003}}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basis divergence}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[
+        xlabel={Angle of attack ($\varphi$, degrees)},
+        ylabel={Divergence ($L^2$-norm)},
+        ymode=log,
+        width=0.9\textwidth,
+        height=0.6\textheight,
+        grid=both,
+        axis lines=left,
+        legend style={
+          at={(0.5, -0.2)},
+          anchor=north,
+          draw=none,
+        },
+        legend cell align=left,
+        legend columns=2,
+        ]
+        \addplot[blue, thick, mark=*, mark options={solid}]
+        table[x index={0}, y index={2}]{data/airfoil-divs-no-piola.csv};
+        \addplot[blue, thick, densely dashed, mark=o, mark options={solid}]
+        table[x index={0}, y index={1}]{data/airfoil-divs-no-piola.csv};
+        \addplot[red, thick, mark=*, mark options={solid}]
+        table[x index={0}, y index={2}]{data/airfoil-divs-piola.csv};
+        \addplot[red, thick, densely dashed, mark=o, mark options={solid}]
+        table[x index={0}, y index={1}]{data/airfoil-divs-piola.csv};
+        \legend{TH mean, TH max, DC mean, DC max}
+      \end{axis}
+    \end{tikzpicture}
   \end{center}
 \end{frame}
 
@@ -670,17 +750,6 @@
       \end{axis}
     \end{tikzpicture}
   \end{center}
-\end{frame}
-
-\begin{frame}
-  \begin{block}{\centering Our guiding principle}
-    \begin{center}
-      \vspace{5mm}
-      All is fair in love, war and the offline stage. \\
-      --- John Lyly (\emph{Euphues}; 1579)
-      \vspace{5mm}
-    \end{center}
-  \end{block}
 \end{frame}
 
 \begin{frame}
